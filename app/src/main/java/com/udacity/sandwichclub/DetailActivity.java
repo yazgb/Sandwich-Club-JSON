@@ -13,15 +13,18 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
 
-    private TextView mOrigin;
-    private TextView mAlsoKnown;
-    private TextView mIngredients;
-    private TextView mDescription;
+    @BindView(R.id.origin_tv) TextView mOrigin;
+    @BindView(R.id.also_known_tv) TextView mAlsoKnown;
+    @BindView(R.id.ingredients_tv) TextView mIngredients;
+    @BindView(R.id.description_tv) TextView mDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +33,7 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
-        // References to TextView views from activity_detail.xml
-        mOrigin = findViewById(R.id.origin_tv);
-        mAlsoKnown = findViewById(R.id.also_known_tv);
-        mIngredients = findViewById(R.id.ingredients_tv);
-        mDescription = findViewById(R.id.description_tv);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         if (intent == null) {
