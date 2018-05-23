@@ -76,7 +76,9 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void populateUI(Sandwich sandwich) {
 
-        mOrigin.setText(sandwich.getPlaceOfOrigin());
+        String sentinelMsg = "Message not available";
+
+        mOrigin.setText(sandwich.getPlaceOfOrigin().isEmpty()? sentinelMsg : sandwich.getPlaceOfOrigin());
 
         // Line separator to help display details
         String lineSeparator = System.getProperty("line.separator");
@@ -91,9 +93,11 @@ public class DetailActivity extends AppCompatActivity {
         if(sbKnownAs.length() > 0)
         {
             sbKnownAs.setLength(sbKnownAs.length()-1);
+            mAlsoKnown.setText(sbKnownAs);
+        } else {
+            mAlsoKnown.setText(sentinelMsg);
         }
-        mAlsoKnown.setText(sbKnownAs);
-
+        
         // Get list of 'ingredients' from the Sandwich object and construct a string to display them
         List<String> ingredientsList = sandwich.getIngredients();
         StringBuilder sbIngredients = new StringBuilder();
@@ -104,9 +108,11 @@ public class DetailActivity extends AppCompatActivity {
         if(sbIngredients.length() > 0)
         {
             sbIngredients.setLength(sbIngredients.length()-1);
+            mIngredients.setText(sbIngredients);
+        } else {
+            mIngredients.setText(sentinelMsg);
         }
-        mIngredients.setText(sbIngredients);
 
-        mDescription.setText(sandwich.getDescription());
+        mDescription.setText(sandwich.getDescription().isEmpty()? sentinelMsg : sandwich.getDescription());
     }
 }
