@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,33 +86,13 @@ public class DetailActivity extends AppCompatActivity {
 
         // Get list of 'also known as' from the Sandwich object and construct a string to display it
         List<String> knownAs = sandwich.getAlsoKnownAs();
-        StringBuilder sbKnownAs = new StringBuilder();
-        for(String alias : knownAs) {
-            sbKnownAs.append(alias);
-            sbKnownAs.append(lineSeparator);
-        }
-        if(sbKnownAs.length() > 0)
-        {
-            sbKnownAs.setLength(sbKnownAs.length()-1);
-            mAlsoKnown.setText(sbKnownAs);
-        } else {
-            mAlsoKnown.setText(sentinelMsg);
-        }
-        
+        String sKnownAs = TextUtils.join(lineSeparator, knownAs);
+        mAlsoKnown.setText(sKnownAs.isEmpty()? sentinelMsg : sKnownAs);
+
         // Get list of 'ingredients' from the Sandwich object and construct a string to display them
         List<String> ingredientsList = sandwich.getIngredients();
-        StringBuilder sbIngredients = new StringBuilder();
-        for(String ingredient : ingredientsList) {
-            sbIngredients.append(ingredient);
-            sbIngredients.append(lineSeparator);
-        }
-        if(sbIngredients.length() > 0)
-        {
-            sbIngredients.setLength(sbIngredients.length()-1);
-            mIngredients.setText(sbIngredients);
-        } else {
-            mIngredients.setText(sentinelMsg);
-        }
+        String sIngredients = TextUtils.join(lineSeparator, ingredientsList);
+        mIngredients.setText(sIngredients.isEmpty()? sentinelMsg : sIngredients);
 
         mDescription.setText(sandwich.getDescription().isEmpty()? sentinelMsg : sandwich.getDescription());
     }
